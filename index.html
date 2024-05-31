@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+        .container{
+            background-color: antiquewhite;
+            height: 500px;
+            width: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            box-shadow: 0 0 5px grey;
+        }
+        .form{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+        }
+        input.error{
+            border: 2px solid red;
+            color: red;
+            font-weight: 300;
+        }
+        label.error{
+            
+        }
+    </style>
+</head>
+<body >
+    <div class = "container">
+        <form >
+            <h3>Formulary</h3>
+            <div class="row">
+                <label for="">names</label>
+                <input type="text" id="name">
+            </div>
+            <div class="row">
+                <label for="">lastnanes</label>
+                <input type="text" id="lastnanes" name="lastnames">
+            </div>
+            <div class="row">
+                <label for="email">email</label>
+                <input type="email" id="correo" >
+            </div>
+            <div class="row">
+                <label for="telefono">telefono</label>
+                <input type="telefono" id="telefono" >
+            </div>
+            <button type="button" id="send" onclick="salida">send</button>
+            <div class="row">
+                <h3 id="entrada"></h3>
+                <h3 id="salida"></h3>
+                <h3 id="diferencia"></h3>
+            </div>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js></script>"></script>
+    <script>
+        $(document).ready(function() {
+            $("#form_validate").validate({
+                rules: {
+                    name: {required:true, minlength:3,},
+                    lastname: {required:true, minlength:3,},
+                    correo: {equired:true, email: true},
+                    telefono: {equired:true, minlength:10 maxlength:18 Number:true}
+                },
+                messages: {
+                    name:{
+                        required:"el campo es requerido",
+                        minlength: "minimo de caracteres 3"
+                    }
+                },
+                lastname; {
+                        required:"el campo es requerido",
+                        minlength: "minimo de caracteres 3"
+                },
+                correo: {
+                    required:"el campo es requerido",
+                    minlength: "el campo debe ser: ejemplo@campo.com"
+                },
+                telefono: {
+                    required:"el campo es requerido",
+                    minlength: "minimo de 10 caracteres"
+                    maxlength: "minimo de 10 caracteres"
+                    Number: "digite solo numeros"
+                }
+            });
+        });
+        $(#send).click(function(){
+            if($("#form_validate").valid
+             alert("los campos estan bien");
+            }
+            else {
+                swal.fire({
+                    title: "hay campos por diligenciar",
+                    icon:"error",
+                    timer:1500,
+                    showConfirmButton: false
+                })                  
+            }
+        });
+        
+        var hora_inicial;
+
+        function load_page() {
+            let hora_inicial = new Date();
+            document.getElementById("entrada").innerText = new Date();
+        }
+        function salida() {
+            let hora_salida = new Date();
+            document.getElementById("salida").innerText = new Date();
+            
+            let diferencia = hora_salida - hora_inicial;
+            let dif_seg = Math.floor(diferencia/1000);
+            let dif_min = Math.floor(dif_seg/60);
+            let dif_hor = Math.floor(dif_min/60);
+            
+            let seg_restantes = dif_seg%60;
+            let min_restantes = dif_min%60;
+
+            let resultado = "diferencia:"+ dif_hor+ ":" + min_restantes + ":" + seg_restantes;
+            swal.fire(""+dif_seg);
+
+            document.getElementById("diferencia").innerText = resultado;
+        }   
+    </script>
+</body>
+</html>
